@@ -15,7 +15,18 @@ spec:
     spec:
       containers:
       - name: guestbook
-        image: registry.k8s.io/guestbook:v3
+        image: 381492301125.dkr.ecr.ap-southeast-1.amazonaws.com/guestbook:latest
+        volumeMounts:
+          - name: aws-credentials-vl
+            mountPath: /root/.aws/credentials
+            subPath: credentials
+            readOnly: true
         ports:
         - name: http-server
           containerPort: 3000
+      volumes:
+      - name: aws-credentials-vl
+        secret:
+          secretName: aws-secret
+      imagePullSecrets:
+        - name: ecr-secret
