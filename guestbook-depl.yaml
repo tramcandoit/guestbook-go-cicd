@@ -7,7 +7,8 @@ metadata:
 spec:
   replicas: 3
   selector:
-    app: guestbook
+    matchLabels:
+      app: guestbook
   template:
     metadata:
       labels:
@@ -22,11 +23,11 @@ spec:
             subPath: credentials
             readOnly: true
         ports:
-        - name: http-server
-          containerPort: 3000
+          - name: http-server
+            containerPort: 3000
       volumes:
-      - name: aws-credentials-vl
-        secret:
-          secretName: aws-secret
+        - name: aws-credentials-vl
+          secret:
+            secretName: aws-secret
       imagePullSecrets:
         - name: ecr-secret
