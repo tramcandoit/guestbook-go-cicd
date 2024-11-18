@@ -28,8 +28,8 @@ import (
 )
 
 var (
-	masterPool *simpleredis.ConnectionPool
-	replicaPool  *simpleredis.ConnectionPool
+	masterPool  *simpleredis.ConnectionPool
+	replicaPool *simpleredis.ConnectionPool
 )
 
 func ListRangeHandler(rw http.ResponseWriter, req *http.Request) {
@@ -87,5 +87,5 @@ func main() {
 
 	n := negroni.Classic()
 	n.UseHandler(r)
-	n.Run(":3000")
+	n.Run("0.0.0.0:3000")
 }
