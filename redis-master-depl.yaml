@@ -1,15 +1,16 @@
-kind: ReplicationController
-apiVersion: v1
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: redis-master
   labels:
     app: redis
     role: master
 spec:
-  replicas: 1
+  replicas: 1  # Still using a single replica, just like in the original ReplicationController
   selector:
-    app: redis
-    role: master
+    matchLabels:
+      app: redis
+      role: master
   template:
     metadata:
       labels:
@@ -18,7 +19,7 @@ spec:
     spec:
       containers:
       - name: redis-master
-        image: redis
+        image: redis:latest  # You can specify a version like redis:6.2.6-alpine if you prefer
         ports:
         - name: redis-server
           containerPort: 6379
