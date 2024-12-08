@@ -5,7 +5,7 @@ metadata:
   labels:
     app: guestbook
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: guestbook
@@ -25,6 +25,11 @@ spec:
         ports:
           - name: http-server
             containerPort: 3000
+        resources:
+          limits:
+            cpu: 15m
+          requests:
+            cpu: 10m
       volumes:
         - name: aws-credentials-vl
           secret:
