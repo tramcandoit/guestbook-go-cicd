@@ -1,0 +1,20 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'kubernetes-nodes'
+    static_configs:
+    - targets:
+      - 172.31.8.125:10250
+      - 172.31.8.128:10250
+      - 172.31.8.130:10250
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true  # Ignore self-signed certificates
+  - job_name: 'kubernetes-api'
+    static_configs:
+    - targets:
+      - 172.31.8.125:6443
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true

@@ -1,1 +1,5 @@
 guestbook_bin
+__pycache__
+go.mod
+go.sum
+webapp
