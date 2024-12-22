@@ -4,22 +4,26 @@ metadata:
   name: redis-master
   labels:
     app: redis
-    role: master
 spec:
-  replicas: 1  # Still using a single replica, just like in the original ReplicationController
+  replicas: 1
   selector:
     matchLabels:
       app: redis
-      role: master
   template:
     metadata:
       labels:
         app: redis
-        role: master
     spec:
       containers:
       - name: redis-master
-        image: redis:latest  # You can specify a version like redis:6.2.6-alpine if you prefer
+        image: redis:latest
         ports:
         - name: redis-server
           containerPort: 6379
+        volumeMounts:
+        - name: redis-storage
+          mountPath: /data
+      volumes:
+      - names: redis-storage
+        persistentVolumeClaim:
+          claimName: redis-pvclaim
